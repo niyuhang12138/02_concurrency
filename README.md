@@ -89,3 +89,5 @@ cat ~/.cargo/config
 [build]
 target-dir = "xxxxx"
 ```
+
+![image-20250106104954695](assets/image-20250106104954695.png)
