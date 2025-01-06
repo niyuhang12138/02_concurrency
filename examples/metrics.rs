@@ -1,6 +1,6 @@
 use std::{thread, time::Duration};
 
-use anyhow::{anyhow, Result};
+use anyhow::Result;
 use rand::Rng;
 use template::Metrics;
 const N: usize = 2;
@@ -20,7 +20,7 @@ fn main() -> Result<()> {
 
     loop {
         thread::sleep(Duration::from_secs(2));
-        println!("{:?}", metrics.snapshot());
+        println!("{}", metrics);
     }
 
     // Ok(())
@@ -31,7 +31,7 @@ fn task_worker(idx: usize, metrics: Metrics) -> Result<()> {
         loop {
             let mut rng = rand::thread_rng();
             thread::sleep(Duration::from_millis(rng.gen_range(100..5000)));
-            metrics.inc(format!("call.thread.worker.{idx}"));
+            metrics.inc(format!("call.thread.worker.{idx}"))?;
         }
         #[allow(unreachable_code)]
         Ok::<_, anyhow::Error>(())
