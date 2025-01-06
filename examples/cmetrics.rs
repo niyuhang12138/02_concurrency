@@ -2,12 +2,12 @@ use std::{thread, time::Duration};
 
 use anyhow::Result;
 use rand::Rng;
-use template::Metrics;
+use template::CMapMetrics;
 const N: usize = 2;
 const M: usize = 4;
 
 fn main() -> Result<()> {
-    let metrics = Metrics::new();
+    let metrics = CMapMetrics::new();
 
     // start  N workers and M requesters
     for idx in 0..N {
@@ -26,7 +26,7 @@ fn main() -> Result<()> {
     // Ok(())
 }
 
-fn task_worker(idx: usize, metrics: Metrics) -> Result<()> {
+fn task_worker(idx: usize, metrics: CMapMetrics) -> Result<()> {
     thread::spawn(move || {
         loop {
             let mut rng = rand::thread_rng();
@@ -40,7 +40,7 @@ fn task_worker(idx: usize, metrics: Metrics) -> Result<()> {
     Ok(())
 }
 
-fn request_worker(metrics: Metrics) -> Result<()> {
+fn request_worker(metrics: CMapMetrics) -> Result<()> {
     thread::spawn(move || loop {
         let mut rng = rand::thread_rng();
         thread::sleep(Duration::from_millis(rng.gen_range(50..800)));
